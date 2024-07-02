@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<ul class="list-group">
+    <li class="list-group-item" th:each="basketProduct : ${basketProducts}">
+        <div class="row">
+            <div class="col-3">
+                <img width="100" height="100" th:src="'/products/image?id='+${basketProduct.product.id}"
+                     alt="Product Photo">
+            </div>
+            <div class="col-3">
+                <h3 th:text="${basketProduct.product.name}"></h3>
+                <p th:text="${basketProduct.product.price}"></p>
+            </div>
+            <div class="col-3">
+                <form action="/basket/amount" method="post">
+                    <input type="hidden" name="productId" th:value="${basketProduct.product.id}">
+                    <input type="hidden" name="operation" value="++">
+                    <button type="submit" class="btn btn-success">+</button>
+                </form>
+                <p th:text="${basketProduct.amount}"></p>
+
+                <form action="/basket/amount" method="post">
+                    <input type="hidden" name="productId" th:value="${basketProduct.product.id}">
+                    <input type="hidden" name="operation" value="--">
+                    <button type="submit" class="btn btn-danger">-</button>
+                </form>
+            </div>
+            <div class="col-3">
+                <h3 th:text="${basketProduct.product.price*basketProduct.amount}"></h3>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-4">
+                <h1>Total : <span th:text="${totalSum}"></span></h1>
+            </div>
+            <div class="col-4">
+                <form action="/order/make" method="post">
+                    <button type="submit" class="btn btn-success">Make Order</button>
+                </form>
+            </div>
+            <div class="col-4">
+                <a href="/">
+                    <button class="btn btn-dark">Back to home</button>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-4 mb-4">Update Category</h2>
+    <form action="/categories/update" method="post">
+        <div class="form-group">
+            <input type="hidden" name="id" th:value="${category.id}">
+            <label for="name">Name:</label>
+            <input th:value="${category.name}" id="name" class="form-control" type="text" placeholder="categoryName"
+                   name="name" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+</body>
+</html>

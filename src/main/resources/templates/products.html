@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-3 list-group bg-dark text-white" style="height: 100vh">
+        <ul class="list-group">
+            <a href="/products">
+                <li class="list-group-item">Products</li>
+            </a>
+            <a href="/categories">
+                <li class="list-group-item">Categories</li>
+            </a>
+            <a href="/">
+                <li class="list-group-item">Home</li>
+            </a>
+            <a href="/order">
+                <li class="list-group-item">orders</li>
+            </a>
+        </ul>
+    </div>
+    <div class="col-9">
+
+        <h1 class="bg-dark text-white text-center">Products</h1>
+        <form action="/products" method="post" enctype="multipart/form-data">
+            <input class="form-control" type="text" placeholder="name" name="name" required>
+            <input class="form-control" type="number" placeholder="price" name="price" required>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <select class="form-control" name="categoryId">
+                <option disabled selected>Select Category</option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                </option>
+            </select>
+            <button class="btn btn-dark">AddProduct</button>
+        </form>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.category.name}"></td>
+                <td>
+                    <img th:src="'/products/image?id='+${product.id}" alt="Product Photo" style="max-width: 60px; height: auto">
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <form action="/products/update" method="get">
+                            <input type="hidden" name="id" th:value="${product.id}">
+                            <button class="btn btn-info">Edit</button>
+                        </form>
+                        <form action="/products/delete" method="post">
+                            <input type="hidden" name="id" th:value="${product.id}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

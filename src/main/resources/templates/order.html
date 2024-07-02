@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-center bg-dark text-white form-control">Orders</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.user.username}"></td>
+        <td>
+            <form action="/order/orderProducts" method="get">
+                <input type="hidden" name="orderId" th:value="${order.id}">
+                <button type="submit" class="btn btn-success">info</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/">
+    <h1 class="form-control bg-primary bg-dark">Back To Home</h1>
+</a>
+</body>
+</html>

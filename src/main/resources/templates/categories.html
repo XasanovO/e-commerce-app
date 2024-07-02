@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-3 list-group bg-dark text-white" style="height: 100vh">
+        <ul class="list-group">
+            <a href="/products">
+                <li class="list-group-item">Products</li>
+            </a>
+            <a href="/categories">
+                <li class="list-group-item">Categories</li>
+            </a>
+            <a href="/">
+                <li class="list-group-item">Home</li>
+            </a>
+            <a href="/order">
+                <li class="list-group-item">orders</li>
+            </a>
+        </ul>
+    </div>
+    <div class="col-9">
+
+        <h1 class="bg-dark text-white text-center">Categories</h1>
+        <form action="/categories" method="post">
+            <input class="form-control" type="text" placeholder="categoryName" name="name" required>
+            <button class="btn btn-dark">AddCategory</button>
+        </form>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+                <td>
+                    <div class="btn-group">
+                        <form action="/categories/update" method="get">
+                            <input type="hidden" name="id" th:value="${category.id}">
+                            <button class="btn btn-info">Edit</button>
+                        </form>
+                        <form action="categories/delete" method="post">
+                            <input type="hidden" name="id" th:value="${category.id}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

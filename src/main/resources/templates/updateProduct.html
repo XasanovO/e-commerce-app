@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Update Product</h1>
+    <form action="/products/update" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:field="${product.id}"/>
+
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input name="name" type="text" class="form-control" id="productName" th:value="${product.name}" placeholder="Enter product name"
+                   required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="productPrice" class="form-label">Product Price</label>
+            <input name="price" type="number" class="form-control" id="productPrice" th:value="${product.price}"
+                   placeholder="Enter product price" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="productCategory" class="form-label">Product Category</label>
+            <select class="form-control" id="productCategory" name="categoryId" th:value="${product.price}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"
+                        th:selected="${category.id} == ${product.category.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="productPhoto" class="form-label">Photo</label>
+            <img th:src="'/products/image?id='+${product.id}" alt="Product Photo" style="max-width: 60px; height: auto">
+            <input type="file" class="form-control" id="productPhoto" name="image" accept="image/*"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+</body>
+</html>

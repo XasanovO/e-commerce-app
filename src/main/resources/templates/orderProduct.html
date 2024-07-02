@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-center bg-dark text-white form-control">OrderProducts</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Order</th>
+        <th>Amount</th>
+        <th>Product</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orderProduct : ${orderProducts}">
+        <td th:text="${orderProduct.id}"></td>
+        <td th:text="${orderProduct.order}"></td>
+        <td th:text="${orderProduct.amount}"></td>
+        <td th:text="${orderProduct.product.name}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/">
+    <h1 class="form-control bg-primary bg-dark">Back To Home</h1>
+</a>
+</body>
+</html>

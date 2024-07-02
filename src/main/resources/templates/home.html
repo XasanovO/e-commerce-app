@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th:="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-3 bg-dark text-white" style="height: 100vh">
+        <ul class="list-group">
+            <a href="/">
+                <li class="list-group-item">All</li>
+            </a>
+            <li class="list-group-item" th:each="category : ${categories}">
+                <a th:href="'/?categoryId=' + ${category.id}" th:text="${category.name}"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-9">
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand">E commerce</a>
+            <a href="/admin">
+                <button class="btn btn-outline-success my-2 my-sm-0">Admin</button>
+            </a>
+            <a href="/basket">
+                <button class="btn btn-outline-success my-2 my-sm-0" th:text="'Basket '+${basketSize}"></button>
+            </a>
+        </nav>
+        <div class="container">
+            <div class="row">
+
+                <div th:each="product : ${products}" class="col-lg-3 col-md-2">
+                    <div class="card">
+                        <form th:action="${product.hasInBasket ? '/basket/delete':'/basket/add'}" method="post">
+                            <input type="hidden" name="productId" th:value="${product.getId()}">
+                            <img th:src="'/products/image?id='+${product.id}" alt="Product Photo"
+                                 style="max-width: 100%; height: auto">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.name}"></h5>
+                                <p class="card-text text-muted" th:text="${product.price}"></p>
+                                <button th:text="${product.hasInBasket ? 'Remove':'Add'}" type="submit"
+                                        th:class="${product.hasInBasket ? 'btn btn-danger':'btn btn-success'}"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
